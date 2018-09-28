@@ -275,10 +275,11 @@ class Ps_Viewedproduct extends Module implements WidgetInterface
 
             if (is_array($productIds)) {
                 foreach ($productIds as $productId) {
-                    if ($this->currentProductId != $productId) {
+                    if ($this->currentProductId != $productId
+                        && $product = $assembler->assembleProduct(array('id_product' => $productId))) {
                         $products_for_template[] = $presenter->present(
                             $presentationSettings,
-                            $assembler->assembleProduct(array('id_product' => $productId)),
+                            $product,
                             $this->context->language
                         );
                     }
